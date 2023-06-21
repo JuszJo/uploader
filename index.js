@@ -1,7 +1,8 @@
+const fs = require('fs');
 const express = require('express');
 const app = express();
 
-const multer = require('multer');
+// const multer = require('multer');
 
 // get storage engine from multer
 // and pass it an options object
@@ -17,26 +18,35 @@ const multer = require('multer');
 //  cb is a callback that determines the uploaded files' names.
 // The callback function takes error and filename as arguments.
 
-const diskStorageOptions = {
-    destination: "./images",
-    filename: (req, file, cb) => {
-        cb(null, `${file.originalname}`)
-    }
-}
+// const diskStorageOptions = {
+//     destination: "./images",
+//     filename: (req, file, cb) => {
+//         cb(null, `${file.originalname}`)
+//     }
+// }
 
-const storageEngine = multer.diskStorage(diskStorageOptions)
+// const storageEngine = multer.diskStorage(diskStorageOptions)
 
-// initialize multer
-const upload = multer({
-    storage: storageEngine
-})
+// // initialize multer
+// const upload = multer({
+//     storage: storageEngine
+// })
 
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.send(`
-        <h1>Welcome</h1>
-    `)
+    res.sendFile(`C:/Users/Joshua/Desktop/Programming/HTMLCSSJAVASCRIPT/multer/index.html`)
+})
+
+app.post('/upload', (req, res) => {
+
+    req.on('data', (data) => {
+        console.log(data);
+
+        
+    })
+
+    // console.log(req.body);
 })
 
 app.listen(port, ()=>{
