@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/upload', (req, res) => {
-    const writableStream = fs.createWriteStream('image.jpg')
+    const writableStream = fs.createWriteStream(`${req.headers.name}`)
 
     const chunks = []
 

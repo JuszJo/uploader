@@ -39,7 +39,8 @@
         const response = await fetch('/upload', {
             method: 'POST',
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'name': `${file.name}`
             },
             body: file
         })
