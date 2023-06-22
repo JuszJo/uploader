@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { Readable } = require('stream');
 const express = require('express');
 const app = express();
 
@@ -39,71 +40,22 @@ app.get('/', (req, res) => {
 })
 
 app.post('/upload', (req, res) => {
+    const writableStream = fs.createWriteStream('image.jpg')
 
-    // const writeStream = fs.createWriteStream('image.jpg')
+    const chunks = []
 
-    // writeStream.on('finish', () => console.log("all done"))
+    req.on('data', data => {
+        chunks.push(data)
+    })
 
-    // let image_buffer = ""
+    req.on('end', () => {
+        const singleBuffer = Buffer.concat(chunks)
 
-    // req.on('data', async data => {
-        // const image_buffer = Buffer.from(data)
-        // writeStream.write(data)
-        
+        writableStream.write(singleBuffer)
 
-        
-
-        // console.log(image_buffer);
-        
-        // Buffer.fro
-        // const response = await Promise.all(data)
-
-        // console.log(response);
+        res.status(200).json({status: "Done"})
+    })
     
-        // fs.writeFile()
-
-        // console.log(data);
-
-        // fs.w
-
-        // fs.writeFile('image.jpg', data, 'base64', () => {
-        //     console.log("Done");
-        // })
-    // })
-
-    // console.log(req.files);
-
-    
-
-    // req.on('data', async (data) => {
-    //     console.log(data);
-
-    //     // req.pipe(fs.createWriteStream('image.png'))
-
-    //     // const response = new Uint8Array(data)
-
-    //     // console.log(response);
-
-    //     // fs.writeFile('image.png', new Buffer.from(data, 'base64'), () => {
-    //     //     console.log(`Data written successfully`);
-    //     // })
-    //     // fs.writeFile('image.png', response, () => {
-    //     //     console.log(`Data written successfully`);
-    //     // })
-
-    //     // fs.wri
-    //     // console.log(data);
-
-    //     // const image = fs.createWriteStream(data)
-
-    //     // fs.writeFile('image.jpg', image, (a, b) => {
-    //         // console.log(a, b);
-    //     // })
-
-        
-    // })
-
-    // console.log(req.body);
 })
 
 app.listen(port, ()=>{
