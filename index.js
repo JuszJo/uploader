@@ -40,11 +40,68 @@ app.get('/', (req, res) => {
 
 app.post('/upload', (req, res) => {
 
-    req.on('data', (data) => {
-        console.log(data);
+    // const writeStream = fs.createWriteStream('image.jpg')
+
+    // writeStream.on('finish', () => console.log("all done"))
+
+    // let image_buffer = ""
+
+    // req.on('data', async data => {
+        // const image_buffer = Buffer.from(data)
+        // writeStream.write(data)
+        
 
         
-    })
+
+        // console.log(image_buffer);
+        
+        // Buffer.fro
+        // const response = await Promise.all(data)
+
+        // console.log(response);
+    
+        // fs.writeFile()
+
+        // console.log(data);
+
+        // fs.w
+
+        // fs.writeFile('image.jpg', data, 'base64', () => {
+        //     console.log("Done");
+        // })
+    // })
+
+    // console.log(req.files);
+
+    
+
+    // req.on('data', async (data) => {
+    //     console.log(data);
+
+    //     // req.pipe(fs.createWriteStream('image.png'))
+
+    //     // const response = new Uint8Array(data)
+
+    //     // console.log(response);
+
+    //     // fs.writeFile('image.png', new Buffer.from(data, 'base64'), () => {
+    //     //     console.log(`Data written successfully`);
+    //     // })
+    //     // fs.writeFile('image.png', response, () => {
+    //     //     console.log(`Data written successfully`);
+    //     // })
+
+    //     // fs.wri
+    //     // console.log(data);
+
+    //     // const image = fs.createWriteStream(data)
+
+    //     // fs.writeFile('image.jpg', image, (a, b) => {
+    //         // console.log(a, b);
+    //     // })
+
+        
+    // })
 
     // console.log(req.body);
 })
