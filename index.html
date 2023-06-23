@@ -13,21 +13,29 @@
         </div>
         <div>
             <!-- <form action="/upload" method="post" enctype="multipart/form-data"> -->
-            <div>
+            <!-- <div>
                 <input type="file" name="image" id="image" multiple>
-            </div>
+            </div> -->
             <!-- </form> -->
+            <!-- <div>
+                <button onclick="submitForm()">Submit</button>
+            </div> -->
+            <!-- <form action="/upload2" method="post" enctype="multipart/form-data">
+                <div>   
+                    <input type="file" name="image" id="image" multiple>
+                </div>  
+                <div>
+                    <button>Submit</button>
+                </div>
+            </form> -->
+            <form>
+                <div>   
+                    <input type="file" name="image" id="image" multiple>
+                </div>  
+            </form>
             <div>
                 <button onclick="submitForm()">Submit</button>
             </div>
-            <!-- <form enctype="multipart/form-data">
-                <div>   
-                    <input type="file" name="image" id="image">
-                </div>  
-                <div>
-                    <button onclick="submitForm(event)">Submit</button>
-                </div>
-            </form> -->
         </div>
     </main>
 </body>
@@ -35,6 +43,17 @@
 
     
     async function submitForm() {
+        const formData = new FormData();
+        const files = document.querySelector('input').files
+
+        for(const file of files) {
+            formData.append('uploadedImage', file)
+        }
+
+        fetch("/upload2", {
+            method: "POST",
+            body: formData
+        })
         // const file = document.querySelector('input').files
         
         // for(let i = 0; i < file.length; ++i) {
@@ -48,18 +67,18 @@
                     //     }) 
                     // }
                     
-        const file = document.querySelector('input').files[0]
+        // const file = document.querySelector('input').files[0]
 
-        const response = await fetch('/upload', {
-            method: 'POST',
-            headers: {
-                'content-type': 'multipart/form-data',
-                'name': `${file.name}`
-            },
-            body: file
-        })
+        // const response = await fetch('/upload', {
+        //     method: 'POST',
+        //     headers: {
+        //         'content-type': 'multipart/form-data',
+        //         'name': `${file.name}`
+        //     },
+        //     body: file
+        // })
 
-        if(response.ok) window.location = '/'
+        // if(response.ok) window.location = '/'
     }
 
 

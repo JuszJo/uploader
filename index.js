@@ -57,6 +57,16 @@ app.post('/upload', (req, res) => {
     
 })
 
+app.post('/upload2', (req, res) => {
+    console.log(req.files);
+
+    req.on('data', data => {
+        console.log(data);
+    })
+
+    res.redirect('/')
+})
+
 app.listen(port, ()=>{
     console.log(`App is listening on port http://localhost:${port}`);
 });
