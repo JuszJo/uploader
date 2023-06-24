@@ -58,15 +58,37 @@ app.post('/upload', (req, res) => {
 })
 
 app.post('/upload2', (req, res) => {
-    console.log(req.files);
 
-    req.on('data', data => {
-        console.log(data);
+    req.on('data', chunk => {
+        const buffer = Buffer.from(chunk)
+
+        console.log(buffer);
     })
 
-    res.redirect('/')
+    req.on('resume', () => {
+        console.log("resume");
+    })
+
+    // req.on('readable', () => {
+    //     console.log("readable");
+    // })
+
+    // req.on('pause', (a, b, c) => {
+    //     console.log("Pause");
+    // })
+
+    // req.on('end', () => {
+    //     console.log("end");
+    // })
+
+    // req.on('close', () => {
+    //     console.log("Close");
+    // })
+
+    res.status(300).send("Doing")
+  
 })
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`App is listening on port http://localhost:${port}`);
 });
