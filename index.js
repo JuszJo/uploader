@@ -43,8 +43,8 @@ app.post('/upload', (req, res) => {
 
     const chunks = []
 
-    req.on('data', data => {
-        chunks.push(data)
+    req.on('data', chunk => {
+        chunks.push(chunk)
     })
 
     req.on('end', () => {
@@ -54,39 +54,6 @@ app.post('/upload', (req, res) => {
 
         res.status(200).json({status: "Done"})
     })
-    
-})
-
-app.post('/upload2', (req, res) => {
-
-    req.on('data', chunk => {
-        const buffer = Buffer.from(chunk)
-
-        console.log(buffer);
-    })
-
-    req.on('resume', () => {
-        console.log("resume");
-    })
-
-    // req.on('readable', () => {
-    //     console.log("readable");
-    // })
-
-    // req.on('pause', (a, b, c) => {
-    //     console.log("Pause");
-    // })
-
-    // req.on('end', () => {
-    //     console.log("end");
-    // })
-
-    // req.on('close', () => {
-    //     console.log("Close");
-    // })
-
-    res.status(300).send("Doing")
-  
 })
 
 app.listen(port, () => {

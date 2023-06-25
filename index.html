@@ -12,14 +12,12 @@
             <h1>Welcome</h1>
         </div>
         <div>
-            <!-- <form action="/upload" method="post" enctype="multipart/form-data"> -->
-            <!-- <div>
+            <div>
                 <input type="file" name="image" id="image" multiple>
-            </div> -->
-            <!-- </form> -->
-            <!-- <div>
+            </div>
+            <div>
                 <button onclick="submitForm()">Submit</button>
-            </div> -->
+            </div>
             <!-- <form action="/upload2" method="post" enctype="multipart/form-data">
                 <div>   
                     <input type="file" name="image" id="image" multiple>
@@ -28,62 +26,41 @@
                     <button>Submit</button>
                 </div>
             </form> -->
-            <form>
+            <!-- <form>
                 <div>   
                     <input type="file" name="image" id="image" multiple>
                 </div>  
             </form>
             <div>
                 <button onclick="submitForm()">Submit</button>
-            </div>
+            </div> -->
         </div>
     </main>
 </body>
 <script>
 
-    
     async function submitForm() {
-        const formData = new FormData();
         const files = document.querySelector('input').files
 
-        for(const file of files) {
-            formData.append('uploadedImage', file)
-        }
+        const filesArray = Array.from(files)
 
-        const response = await fetch("/upload2", {
-            method: "POST",
-            headers: {
-                "content-type": "multipart/form-data",
-            },
-            body: formData
+        const arrayOfPromises = filesArray.map(async file => {
+            const response = await fetch('/upload', {
+                method: 'POST',
+                headers: {
+                    'name': `${file.name}`
+                },
+                body: file
+            })
+
+            const data = await response.json()
+
+            return data
         })
 
-        window.location = "/"
-        // const file = document.querySelector('input').files
-        
-        // for(let i = 0; i < file.length; ++i) {
-            //     const response = await fetch('/upload', {
-                //         method: 'POST',
-                //         headers: {
-                    //             'content-type': 'multipart/form-data',
-                    //             'name': `${file[i].name}`
-                    //         },
-                    //         body: file[i]
-                    //     }) 
-                    // }
-                    
-        // const file = document.querySelector('input').files[0]
+        const data = await Promise.all(arrayOfPromises)
 
-        // const response = await fetch('/upload', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'multipart/form-data',
-        //         'name': `${file.name}`
-        //     },
-        //     body: file
-        // })
-
-        // if(response.ok) window.location = '/'
+        if(data[0].status == "Done") window.location = '/'
     }
 
 
