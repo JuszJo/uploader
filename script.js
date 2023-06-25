@@ -21,3 +21,7 @@ async function submitForm() {
 
     if(data[0].status == "Done") window.location = '/'
 }
+
+function download() {
+    
+}
