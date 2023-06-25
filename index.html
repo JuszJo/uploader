@@ -18,51 +18,8 @@
             <div>
                 <button onclick="submitForm()">Submit</button>
             </div>
-            <!-- <form action="/upload2" method="post" enctype="multipart/form-data">
-                <div>   
-                    <input type="file" name="image" id="image" multiple>
-                </div>  
-                <div>
-                    <button>Submit</button>
-                </div>
-            </form> -->
-            <!-- <form>
-                <div>   
-                    <input type="file" name="image" id="image" multiple>
-                </div>  
-            </form>
-            <div>
-                <button onclick="submitForm()">Submit</button>
-            </div> -->
         </div>
     </main>
 </body>
-<script>
-
-    async function submitForm() {
-        const files = document.querySelector('input').files
-
-        const filesArray = Array.from(files)
-
-        const arrayOfPromises = filesArray.map(async file => {
-            const response = await fetch('/upload', {
-                method: 'POST',
-                headers: {
-                    'name': `${file.name}`
-                },
-                body: file
-            })
-
-            const data = await response.json()
-
-            return data
-        })
-
-        const data = await Promise.all(arrayOfPromises)
-
-        if(data[0].status == "Done") window.location = '/'
-    }
-
-
-</script>
+<script src="script.js"></script>
 </html>

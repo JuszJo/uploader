@@ -2,6 +2,8 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 
+app.use(express.static('./'))
+
 // const multer = require('multer');
 
 // get storage engine from multer
