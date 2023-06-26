@@ -42,7 +42,35 @@ function handleSeeAll(req, res) {
     fs.readdir('./images', async (err, files) => {
         if(files.length == 0) res.send("No Files")
         else {
-            let images = `<div>`
+            let images = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <style>
+                    div {
+                        display: grid;
+                        grid-template: repeat(4, 300px) / repeat(3, 300px);
+                        justify-content: center;
+                        gap: 20px;
+                        margin: 0 50px;
+                    }
+            
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+            
+            
+                </style>
+            </head>
+            <body>
+                <div>
+            `
     
             const arrayOfImages = await Promise.all(files.map(async file => {
                 const buffer = await fs.promises.readFile(`./images/${file}`)
@@ -56,7 +84,7 @@ function handleSeeAll(req, res) {
                 return html
             }))
     
-            res.send(images + "</div>")
+            res.send(images + `</div></body></html>`)
         }
     })
 }
