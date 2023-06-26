@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
+const mongo_config = require('./config/db.config');
 const { handleUpload, handleSeeAll, handleDownload } = require('./controllers/storage.controller');
 
 app.use(express.static('./'))
@@ -37,8 +38,11 @@ app.use(express.static('./'))
 
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.sendFile(`C:/Users/Joshua/Desktop/Programming/HTMLCSSJAVASCRIPT/multer/index.html`)
+mongoose.connect(mongo_config.uri)
+.then((a) => {
+    app.get('/', async (req, res) => {
+        res.sendFile(`C:/Users/Joshua/Desktop/Programming/HTMLCSSJAVASCRIPT/multer/index.html`)
+    })
 })
 
 app.post('/upload', handleUpload)

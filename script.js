@@ -1,3 +1,5 @@
+const user = prompt("enter your name")
+
 async function submitForm() {
     const files = document.querySelector('input').files
 
@@ -7,7 +9,8 @@ async function submitForm() {
         const response = await fetch('/upload', {
             method: 'POST',
             headers: {
-                'name': `${file.name}`
+                'name': `${file.name}`,
+                'user': `${user.toLowerCase()}`
             },
             body: file
         })

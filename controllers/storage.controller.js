@@ -1,7 +1,9 @@
 const fs = require('fs');
+const mongoose = require('mongoose');
+const UserSchema = require('../models/User.js');
 
-function handleUpload (req, res) {
-    const writableStream = fs.createWriteStream(`./images/${req.headers.name}`)
+function handleUpload(req, res) {
+    // const writableStream = fs.createWriteStream(`./images/${req.headers.name}`)
 
     const chunks = []
 
@@ -9,10 +11,37 @@ function handleUpload (req, res) {
         chunks.push(chunk)
     })
 
-    req.on('end', () => {
+    req.on('end', async () => {
         const singleBuffer = Buffer.concat(chunks)
 
-        writableStream.write(singleBuffer)
+        const UserModel = mongoose.model(req.headers.user, UserSchema)
+
+        const totalDocs = await UserModel.count({})
+
+        if(totalDocs > 0) {
+            UserModel.findOneAndUpdate({name: req.headers.user}, {$push: {files: {
+                name: req.headers.name,
+                file: singleBuffer
+            }}})
+            .then(() => {
+                console.log("updated successfully");
+            })
+        }
+        else {
+            const user = new UserModel({
+                name: req.headers.user,
+                files: [
+                    {
+                        name: req.headers.name,
+                        file: singleBuffer
+                    }
+                ]
+            })
+
+            user.save()
+        }
+
+        // writableStream.write(singleBuffer)
 
         res.status(200).json({status: "Done"})
     })
