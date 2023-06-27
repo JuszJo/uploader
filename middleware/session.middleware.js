@@ -1,12 +1,11 @@
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
-// const mongo_config = require('../config/db.config')
 
 const sessionStore = MongoStore.create({
     mongoUrl: 'mongodb://127.0.0.1:27017/sessions'
 })
 
-session({
+module.exports = session({
     secret: '12345678',
     resave: true,
     rolling: true,
@@ -16,5 +15,3 @@ session({
     },
     store: sessionStore
 })
-
-module.exports = session

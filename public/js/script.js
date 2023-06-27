@@ -2,16 +2,20 @@ const querySearch = window.location.search
 
 let user
 
-if(querySearch == '') {
-    user = prompt("enter your name")
+const searchParams = new URLSearchParams(querySearch)
 
-    window.location = `/?name=${user}`
-}
-else {
-    const searchParams = new URLSearchParams(querySearch)
+user = searchParams.get('name')
 
-    user = searchParams.get('name')
-}
+// if(querySearch == '') {
+//     user = prompt("enter your name")
+
+//     window.location = `/?name=${user}`
+// }
+// else {
+//     const searchParams = new URLSearchParams(querySearch)
+
+//     user = searchParams.get('name')
+// }
 
 async function submitForm() {
     const files = document.querySelector('input').files
