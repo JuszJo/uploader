@@ -1,7 +1,6 @@
-const express = require('express')
-const { handleUpload } = require('../controllers/storage.controller')
+const router = require('express').Router()
 
-const router = express.Router()
+const { handleUpload } = require('../controllers/storage.controller')
 
 router.post('/upload', handleUpload)
 

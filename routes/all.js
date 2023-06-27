@@ -1,7 +1,6 @@
-const express = require('express')
-const { handleSeeAll } = require('../controllers/storage.controller')
+const router = require('express').Router()
 
-const router = express.Router()
+const { handleSeeAll } = require('../controllers/storage.controller')
 
 router.get('/all', handleSeeAll)
 

@@ -1,7 +1,6 @@
-const express = require('express')
-const { handleDownload } = require('../controllers/storage.controller')
+const router = require('express').Router()
 
-const router = express.Router()
+const { handleDownload } = require('../controllers/storage.controller')
 
 router.get('/download', handleDownload)
 
