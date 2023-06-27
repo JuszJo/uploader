@@ -1,55 +1,17 @@
 const express = require('express');
 const app = express();
+const handleRoutes = require('./routes/routes')
 const mongoose = require('mongoose');
 const mongo_config = require('./config/db.config');
-const { handleUpload, handleSeeAll, handleDownload } = require('./controllers/storage.controller');
 
 app.use(express.static('./'))
-
-// const multer = require('multer');
-
-// get storage engine from multer
-// and pass it an options object
-
-// it takes a destination and a filename property
-
-// destination is a string or function that specifies where the uploaded images will be stored.
-
-// filename  is a function that determines the uploaded files' names.
-// req, file, and a callback (cb).
-// req is the Express Request object,
-// file is an object containing information about the processed file,
-//  cb is a callback that determines the uploaded files' names.
-// The callback function takes error and filename as arguments.
-
-// const diskStorageOptions = {
-//     destination: "./images",
-//     filename: (req, file, cb) => {
-//         cb(null, `${file.originalname}`)
-//     }
-// }
-
-// const storageEngine = multer.diskStorage(diskStorageOptions)
-
-// // initialize multer
-// const upload = multer({
-//     storage: storageEngine
-// })
 
 const port = process.env.PORT || 3000;
 
 mongoose.connect(mongo_config.uri)
-.then((a) => {
-    app.get('/', async (req, res) => {
-        res.sendFile(`C:/Users/Joshua/Desktop/Programming/HTMLCSSJAVASCRIPT/multer/index.html`)
-    })
+.then(() => {
+    handleRoutes(app)   
 })
-
-app.post('/upload', handleUpload)
-
-app.get('/all', handleSeeAll)
-
-app.get('/download', handleDownload)
 
 app.listen(port, () => {
     console.log(`App is listening on port http://localhost:${port}`);
